@@ -1,12 +1,15 @@
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
-import { Platform, View, Text, StyleSheet } from 'react-native';
+import { Platform, View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AuthProvider } from '../contexts/AuthContext';
 import { CartProvider } from '../contexts/CartContext';
 import { registerPushToken } from '../services/notificationService';
 import { useAuth } from '../hooks/useAuth';
+
+const { width: VIEWPORT_W } = Dimensions.get('window');
+const IS_DESKTOP_BROWSER = Platform.OS === 'web' && VIEWPORT_W >= 480;
 
 function PushRegistrar() {
   const { user } = useAuth();
@@ -241,7 +244,7 @@ export default function RootLayout() {
     </SafeAreaProvider>
   );
 
-  if (Platform.OS === 'web') {
+  if (IS_DESKTOP_BROWSER) {
     return (
       <PhoneFrame>
         {content}

@@ -21,7 +21,8 @@ import { fetchRestaurants, fetchStories } from '../../services/restaurantService
 import { useCart } from '../../hooks/useCart';
 
 const { width: RAW_WIDTH } = Dimensions.get('window');
-const SCREEN_WIDTH = Platform.OS === 'web' ? Math.min(RAW_WIDTH, 390) : RAW_WIDTH;
+const IS_DESKTOP = Platform.OS === 'web' && RAW_WIDTH >= 480;
+const SCREEN_WIDTH = IS_DESKTOP ? 375 : RAW_WIDTH;
 
 const CATEGORIES_GRID = [
   { id: '1', name: 'Restaurantes', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&q=80', color: '#FFF3E0' },
