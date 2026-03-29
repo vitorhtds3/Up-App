@@ -1,4 +1,11 @@
 // Up App - Design Tokens
+export const Fonts = {
+  regular: 'Nunito_400Regular',
+  semiBold: 'Nunito_600SemiBold',
+  bold: 'Nunito_700Bold',
+  extraBold: 'Nunito_800ExtraBold',
+  black: 'Nunito_900Black',
+};
 export const Colors = {
   primary: '#F05A28',
   primaryDark: '#D94E20',

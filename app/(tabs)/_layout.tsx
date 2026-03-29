@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Platform, View, Text, StyleSheet } from 'react-native';
 import { useCart } from '../../hooks/useCart';
-import { Colors } from '../../constants/theme';
+import { Colors, Fonts } from '../../constants/theme';
 
 function CartTabIcon({ color, focused }: { color: string; focused: boolean }) {
   const { totalItems } = useCart();
@@ -88,7 +88,7 @@ export default function TabLayout() {
         tabBarInactiveTintColor: '#AAAAAA',
         tabBarLabelStyle: {
           fontSize: 10,
-          fontWeight: '600',
+          fontFamily: Fonts.bold,
           marginTop: 0,
           letterSpacing: 0.1,
         },

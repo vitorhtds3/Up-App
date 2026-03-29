@@ -3,10 +3,20 @@ import { useEffect } from 'react';
 import { Platform, View, Text, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useFonts,
+  Nunito_400Regular,
+  Nunito_600SemiBold,
+  Nunito_700Bold,
+  Nunito_800ExtraBold,
+  Nunito_900Black,
+} from '@expo-google-fonts/nunito';
+import * as SplashScreen from 'expo-splash-screen';
 import { AuthProvider } from '../contexts/AuthContext';
 import { CartProvider } from '../contexts/CartContext';
 import { registerPushToken } from '../services/notificationService';
 import { useAuth } from '../hooks/useAuth';
+
+SplashScreen.preventAutoHideAsync().catch(() => {});
 
 const { width: VIEWPORT_W } = Dimensions.get('window');
 const IS_DESKTOP_BROWSER = Platform.OS === 'web' && VIEWPORT_W >= 480;
@@ -215,6 +225,22 @@ const frameStyles = StyleSheet.create({
 });
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    Nunito_400Regular,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+    Nunito_800ExtraBold,
+    Nunito_900Black,
+  });
+
+  useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) return null;
+
   const content = (
     <SafeAreaProvider>
       <AuthProvider>

@@ -17,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
-import { Colors, Radius, FontSize, Shadow } from '../constants/theme';
+import { Colors, Radius, FontSize, Shadow, Fonts } from '../constants/theme';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -196,18 +196,19 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 32,
-    fontWeight: '900',
+    fontFamily: Fonts.black,
     color: Colors.primary,
     letterSpacing: -1,
   },
   appName: {
     fontSize: 26,
-    fontWeight: '800',
+    fontFamily: Fonts.extraBold,
     color: '#FFFFFF',
     letterSpacing: -0.5,
   },
   tagline: {
     fontSize: 13,
+    fontFamily: Fonts.regular,
     color: 'rgba(255,255,255,0.82)',
     textAlign: 'center',
     paddingHorizontal: 20,
@@ -224,12 +225,13 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     fontSize: 22,
-    fontWeight: '700',
+    fontFamily: Fonts.bold,
     color: '#1A1A1A',
     marginBottom: 4,
   },
   cardSubtitle: {
     fontSize: 13,
+    fontFamily: Fonts.regular,
     color: '#888888',
     marginBottom: 26,
   },
@@ -238,7 +240,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    fontWeight: '600',
+    fontFamily: Fonts.semiBold,
     color: '#444444',
     marginBottom: 8,
   },
@@ -261,11 +263,13 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: FontSize.base,
+    fontFamily: Fonts.regular,
     color: '#1A1A1A',
     includeFontPadding: false,
   },
   errorText: {
     fontSize: 12,
+    fontFamily: Fonts.regular,
     color: Colors.error,
     marginTop: 4,
   },
@@ -275,8 +279,8 @@ const styles = StyleSheet.create({
   },
   forgotInlineText: {
     fontSize: 13,
+    fontFamily: Fonts.semiBold,
     color: Colors.primary,
-    fontWeight: '500',
   },
   loginBtn: {
     backgroundColor: Colors.primary,
@@ -290,7 +294,7 @@ const styles = StyleSheet.create({
   },
   loginBtnText: {
     fontSize: 15,
-    fontWeight: '800',
+    fontFamily: Fonts.extraBold,
     color: '#FFFFFF',
     letterSpacing: 1.2,
   },
@@ -301,11 +305,12 @@ const styles = StyleSheet.create({
   },
   registerHint: {
     fontSize: FontSize.base,
+    fontFamily: Fonts.regular,
     color: '#888888',
   },
   registerLink: {
     fontSize: FontSize.base,
+    fontFamily: Fonts.bold,
     color: Colors.primary,
-    fontWeight: '700',
   },
 });

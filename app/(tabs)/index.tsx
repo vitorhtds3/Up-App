@@ -16,7 +16,7 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme';
+import { Colors, Spacing, Radius, FontSize, Shadow, Fonts } from '../../constants/theme';
 import { fetchRestaurants, fetchStories } from '../../services/restaurantService';
 import { useCart } from '../../hooks/useCart';
 
@@ -112,7 +112,7 @@ const bannerStyles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.42)', padding: 10,
     borderBottomLeftRadius: Radius.lg, borderBottomRightRadius: Radius.lg,
   },
-  title: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  title: { color: '#fff', fontFamily: Fonts.bold, fontSize: 13 },
   dots: { flexDirection: 'row', justifyContent: 'center', gap: 5, marginTop: 8 },
   dot: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: Colors.border },
   dotActive: { backgroundColor: Colors.primary, width: 14 },
@@ -149,7 +149,7 @@ const catStyles = StyleSheet.create({
   item: { width: (SCREEN_WIDTH - 32 - 18) / 4, borderRadius: Radius.md, overflow: 'hidden', alignItems: 'center' },
   img: { width: '100%', height: 56, borderRadius: Radius.md },
   seeAllBox: { width: '100%', height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0E8FF' },
-  name: { fontSize: 9, fontWeight: '600', color: Colors.text, textAlign: 'center', paddingVertical: 4, paddingHorizontal: 2 },
+  name: { fontSize: 9, fontFamily: Fonts.bold, color: Colors.text, textAlign: 'center', paddingVertical: 4, paddingHorizontal: 2 },
 });
 
 // ─── Food Categories ──────────────────────────────────────────────
@@ -185,7 +185,7 @@ const fcStyles = StyleSheet.create({
     paddingVertical: 6, paddingHorizontal: 8,
     borderBottomLeftRadius: Radius.md, borderBottomRightRadius: Radius.md,
   },
-  name: { color: '#fff', fontWeight: '700', fontSize: 11 },
+  name: { color: '#fff', fontFamily: Fonts.bold, fontSize: 11 },
 });
 
 // ─── Top Stores (real restaurants as stories) ─────────────────────
@@ -218,7 +218,7 @@ const storyStyles = StyleSheet.create({
   item: { width: 58, alignItems: 'center', gap: 4 },
   ring: { width: 54, height: 54, borderRadius: 27, borderWidth: 2, borderColor: Colors.primary, padding: 2, overflow: 'hidden' },
   img: { width: '100%', height: '100%', borderRadius: 27 },
-  name: { fontSize: 10, color: Colors.text, textAlign: 'center', fontWeight: '500', lineHeight: 13 },
+  name: { fontSize: 10, color: Colors.text, textAlign: 'center', fontFamily: Fonts.semiBold, lineHeight: 13 },
 });
 
 // ─── Restaurant Card ──────────────────────────────────────────────
@@ -271,22 +271,22 @@ const rcStyles = StyleSheet.create({
   imgWrap: { position: 'relative', height: 112 },
   image: { width: '100%', height: '100%' },
   closedOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
-  closedText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  closedText: { color: '#fff', fontFamily: Fonts.bold, fontSize: 16 },
   freeBadge: { position: 'absolute', top: 8, left: 8, backgroundColor: Colors.success, borderRadius: Radius.full, paddingHorizontal: 8, paddingVertical: 2 },
-  freeBadgeText: { color: '#fff', fontSize: 10, fontWeight: '700' },
+  freeBadgeText: { color: '#fff', fontSize: 10, fontFamily: Fonts.bold },
   info: { paddingHorizontal: 12, paddingVertical: 10 },
-  name: { fontSize: 14, fontWeight: '700', color: Colors.text },
-  category: { fontSize: 12, color: Colors.textSecondary, marginTop: 1 },
+  name: { fontSize: 14, fontFamily: Fonts.bold, color: Colors.text },
+  category: { fontSize: 12, fontFamily: Fonts.regular, color: Colors.textSecondary, marginTop: 1 },
   meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 },
   ratingRow: { flexDirection: 'row', alignItems: 'center', gap: 2 },
-  rating: { fontSize: 12, color: Colors.text, fontWeight: '600' },
+  rating: { fontSize: 12, fontFamily: Fonts.semiBold, color: Colors.text },
   dot: { color: Colors.textLight, fontSize: 9 },
-  time: { fontSize: 12, color: Colors.textSecondary },
-  fee: { fontSize: 12, color: Colors.textSecondary },
+  time: { fontSize: 12, fontFamily: Fonts.regular, color: Colors.textSecondary },
+  fee: { fontSize: 12, fontFamily: Fonts.regular, color: Colors.textSecondary },
 });
 
 const sectionTitle = {
-  fontSize: 15, fontWeight: '700' as const, color: Colors.text, marginBottom: 10, paddingHorizontal: 16,
+  fontSize: 15, fontFamily: Fonts.extraBold, color: Colors.text, marginBottom: 10, paddingHorizontal: 16,
 };
 
 // ─── Home Screen ──────────────────────────────────────────────────
@@ -379,13 +379,13 @@ const headerStyles = StyleSheet.create({
   gradient: { paddingBottom: 12 },
   container: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingBottom: 10 },
   location: { flexDirection: 'row', alignItems: 'center', gap: 4, flex: 1 },
-  locationText: { fontSize: 14, fontWeight: '700', color: '#fff' },
+  locationText: { fontSize: 14, fontFamily: Fonts.bold, color: '#fff' },
   cartBtn: { position: 'relative', padding: 4 },
   badge: { position: 'absolute', top: 0, right: 0, backgroundColor: '#fff', borderRadius: 9, minWidth: 16, height: 16, alignItems: 'center', justifyContent: 'center' },
-  badgeText: { color: Colors.primary, fontSize: 9, fontWeight: '800' },
+  badgeText: { color: Colors.primary, fontSize: 9, fontFamily: Fonts.black },
 });
 
 const searchStyles = StyleSheet.create({
   bar: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: '#fff', marginHorizontal: 16, borderRadius: Radius.md, paddingHorizontal: 12, height: 40, ...Shadow.md },
-  placeholder: { fontSize: 13, color: Colors.textLight, flex: 1 },
+  placeholder: { fontSize: 13, fontFamily: Fonts.regular, color: Colors.textLight, flex: 1 },
 });
