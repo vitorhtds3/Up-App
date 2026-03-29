@@ -17,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../hooks/useAuth';
 import { supabase } from '../lib/supabase';
-import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
+import { Colors, Radius, FontSize, Shadow } from '../constants/theme';
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -80,28 +80,28 @@ export default function LoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header with Logo */}
-        <View style={[styles.header, { paddingTop: insets.top + 20 }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 24 }]}>
           <View style={styles.logoBox}>
-            <Text style={styles.logoText}>UP</Text>
-            <View style={styles.logoBowl} />
+            <Text style={styles.logoText}>UP.</Text>
           </View>
           <Text style={styles.appName}>Up App</Text>
-          <Text style={styles.tagline}>Delivery rápido e fácil</Text>
+          <Text style={styles.tagline}>O app dos seus restaurantes favoritos</Text>
         </View>
 
         {/* Card */}
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Entrar</Text>
+          <Text style={styles.cardTitle}>Entrar na conta</Text>
+          <Text style={styles.cardSubtitle}>Acesse para começar seus pedidos</Text>
 
           {/* Email */}
           <View style={styles.fieldGroup}>
-            <Text style={styles.label}>EMAIL</Text>
+            <Text style={styles.label}>Email</Text>
             <View style={[styles.inputRow, errors.email ? styles.inputError : null]}>
-              <MaterialIcons name="email" size={18} color={Colors.textLight} style={styles.inputIcon} />
+              <MaterialIcons name="email" size={18} color="#AAAAAA" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
                 placeholder="seu@email.com"
-                placeholderTextColor={Colors.textLight}
+                placeholderTextColor="#BBBBBB"
                 value={email}
                 onChangeText={(t) => { setEmail(t); setErrors((e) => ({ ...e, email: undefined })); }}
                 keyboardType="email-address"
@@ -114,13 +114,13 @@ export default function LoginScreen() {
 
           {/* Password */}
           <View style={styles.fieldGroup}>
-            <Text style={styles.label}>SENHA</Text>
+            <Text style={styles.label}>Senha</Text>
             <View style={[styles.inputRow, errors.password ? styles.inputError : null]}>
-              <MaterialIcons name="lock" size={18} color={Colors.textLight} style={styles.inputIcon} />
+              <MaterialIcons name="lock" size={18} color="#AAAAAA" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="••••••••"
-                placeholderTextColor={Colors.textLight}
+                placeholder="Sua senha"
+                placeholderTextColor="#BBBBBB"
                 value={password}
                 onChangeText={(t) => { setPassword(t); setErrors((e) => ({ ...e, password: undefined })); }}
                 secureTextEntry={!showPassword}
@@ -129,11 +129,21 @@ export default function LoginScreen() {
                 <MaterialIcons
                   name={showPassword ? 'visibility' : 'visibility-off'}
                   size={20}
-                  color={Colors.textLight}
+                  color="#BBBBBB"
                 />
               </Pressable>
             </View>
             {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
+            <TouchableOpacity
+              style={styles.forgotInline}
+              activeOpacity={0.7}
+              onPress={handleForgotPassword}
+              disabled={resetLoading}
+            >
+              <Text style={styles.forgotInlineText}>
+                {resetLoading ? 'Enviando...' : 'Esqueci minha senha'}
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Login Button */}
@@ -146,14 +156,8 @@ export default function LoginScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.loginBtnText}>Entrar</Text>
+              <Text style={styles.loginBtnText}>ENTRAR</Text>
             )}
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.forgotBtn} activeOpacity={0.7} onPress={handleForgotPassword} disabled={resetLoading}>
-            <Text style={styles.forgotText}>
-              {resetLoading ? 'Enviando...' : 'Esqueceu a senha?'}
-            </Text>
           </TouchableOpacity>
 
           <View style={styles.registerRow}>
@@ -163,8 +167,6 @@ export default function LoginScreen() {
             </TouchableOpacity>
           </View>
         </View>
-
-        <View style={{ height: insets.bottom + 32 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -176,78 +178,77 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    paddingBottom: 28,
-    gap: 4,
+    paddingBottom: 32,
+    gap: 6,
   },
   logoBox: {
-    width: 76,
-    height: 76,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 20,
+    width: 80,
+    height: 80,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 6,
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
   },
   logoText: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: '900',
-    color: '#FFFFFF',
+    color: Colors.primary,
     letterSpacing: -1,
   },
-  logoBowl: {
-    position: 'absolute',
-    bottom: 13,
-    width: 18,
-    height: 8,
-    borderBottomLeftRadius: 9,
-    borderBottomRightRadius: 9,
-    borderWidth: 2,
-    borderTopWidth: 0,
-    borderColor: '#FFFFFF',
-  },
   appName: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: '800',
     color: '#FFFFFF',
+    letterSpacing: -0.5,
   },
   tagline: {
-    fontSize: 14,
-    color: 'rgba(255,255,255,0.85)',
+    fontSize: 13,
+    color: 'rgba(255,255,255,0.82)',
+    textAlign: 'center',
+    paddingHorizontal: 20,
   },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAFAF8',
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
     paddingHorizontal: 24,
-    paddingTop: 28,
-    paddingBottom: 20,
+    paddingTop: 30,
+    paddingBottom: 32,
     flex: 1,
-    minHeight: 380,
+    minHeight: 400,
   },
   cardTitle: {
     fontSize: 22,
     fontWeight: '700',
-    color: Colors.text,
-    textAlign: 'center',
-    marginBottom: 22,
+    color: '#1A1A1A',
+    marginBottom: 4,
+  },
+  cardSubtitle: {
+    fontSize: 13,
+    color: '#888888',
+    marginBottom: 26,
   },
   fieldGroup: {
-    marginBottom: 16,
+    marginBottom: 18,
   },
   label: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: '600',
-    color: Colors.textSecondary,
-    letterSpacing: 0.8,
+    color: '#444444',
     marginBottom: 8,
   },
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.surface,
+    backgroundColor: '#FFFFFF',
     borderRadius: Radius.md,
-    borderWidth: 1.5,
-    borderColor: Colors.border,
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
     paddingHorizontal: 14,
     height: 52,
   },
@@ -260,7 +261,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: FontSize.base,
-    color: Colors.text,
+    color: '#1A1A1A',
     includeFontPadding: false,
   },
   errorText: {
@@ -268,37 +269,39 @@ const styles = StyleSheet.create({
     color: Colors.error,
     marginTop: 4,
   },
+  forgotInline: {
+    alignSelf: 'flex-end',
+    marginTop: 8,
+  },
+  forgotInlineText: {
+    fontSize: 13,
+    color: Colors.primary,
+    fontWeight: '500',
+  },
   loginBtn: {
     backgroundColor: Colors.primary,
     borderRadius: Radius.md,
     height: 54,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8,
+    marginTop: 4,
+    marginBottom: 24,
     ...Shadow.md,
   },
   loginBtnText: {
-    fontSize: FontSize.lg,
-    fontWeight: '700',
+    fontSize: 15,
+    fontWeight: '800',
     color: '#FFFFFF',
-  },
-  forgotBtn: {
-    alignItems: 'center',
-    paddingVertical: 16,
-  },
-  forgotText: {
-    fontSize: FontSize.sm,
-    color: Colors.textSecondary,
+    letterSpacing: 1.2,
   },
   registerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 8,
   },
   registerHint: {
     fontSize: FontSize.base,
-    color: Colors.textSecondary,
+    color: '#888888',
   },
   registerLink: {
     fontSize: FontSize.base,

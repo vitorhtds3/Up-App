@@ -117,17 +117,19 @@ export default function RegisterScreen() {
             <MaterialIcons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
           <View style={styles.logoBox}>
-            <Text style={styles.logoText}>UP</Text>
+            <Text style={styles.logoText}>UP.</Text>
           </View>
           <Text style={styles.appName}>Criar conta</Text>
           <Text style={styles.tagline}>Rápido, simples e gratuito</Text>
         </View>
 
         <View style={styles.card}>
-          <Field label="NOME COMPLETO" value={name} onChangeText={setName} placeholder="Seu nome" icon="person" errorKey="name" />
-          <Field label="EMAIL" value={email} onChangeText={setEmail} placeholder="seu@email.com" icon="email" keyboardType="email-address" errorKey="email" />
-          <Field label="SENHA" value={password} onChangeText={setPassword} placeholder="Mínimo 6 caracteres" icon="lock" secure errorKey="password" />
-          <Field label="CONFIRMAR SENHA" value={confirmPassword} onChangeText={setConfirmPassword} placeholder="Repita a senha" icon="lock-outline" secure errorKey="confirmPassword" />
+          <Text style={styles.cardTitle}>Cadastre-se</Text>
+          <Text style={styles.cardSubtitle}>Crie sua conta para começar a pedir</Text>
+          <Field label="Nome completo" value={name} onChangeText={setName} placeholder="Seu nome" icon="person" errorKey="name" />
+          <Field label="Email" value={email} onChangeText={setEmail} placeholder="seu@email.com" icon="email" keyboardType="email-address" errorKey="email" />
+          <Field label="Senha" value={password} onChangeText={setPassword} placeholder="Mínimo 6 caracteres" icon="lock" secure errorKey="password" />
+          <Field label="Confirmar senha" value={confirmPassword} onChangeText={setConfirmPassword} placeholder="Repita a senha" icon="lock-outline" secure errorKey="confirmPassword" />
 
           <TouchableOpacity
             style={[styles.registerBtn, loading && { opacity: 0.7 }]}
@@ -138,7 +140,7 @@ export default function RegisterScreen() {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.registerBtnText}>Criar conta</Text>
+              <Text style={styles.registerBtnText}>CRIAR CONTA</Text>
             )}
           </TouchableOpacity>
 
@@ -160,8 +162,8 @@ const styles = StyleSheet.create({
   scrollContent: { flexGrow: 1 },
   header: {
     alignItems: 'center',
-    paddingBottom: 32,
-    gap: 4,
+    paddingBottom: 28,
+    gap: 6,
   },
   backBtn: {
     position: 'absolute',
@@ -170,59 +172,66 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   logoBox: {
-    width: 70,
-    height: 70,
-    backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 18,
+    width: 72,
+    height: 72,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 6,
-    marginTop: 32,
+    marginBottom: 8,
+    marginTop: 28,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
   },
   logoText: {
-    fontSize: 34,
+    fontSize: 28,
     fontWeight: '900',
-    color: '#FFFFFF',
+    color: Colors.primary,
     letterSpacing: -1,
   },
-  appName: { fontSize: 24, fontWeight: '800', color: '#FFFFFF' },
-  tagline: { fontSize: 14, color: 'rgba(255,255,255,0.85)' },
+  appName: { fontSize: 22, fontWeight: '800', color: '#FFFFFF' },
+  tagline: { fontSize: 13, color: 'rgba(255,255,255,0.82)' },
   card: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#FAFAF8',
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
-    paddingHorizontal: 28,
-    paddingTop: 36,
+    paddingHorizontal: 24,
+    paddingTop: 24,
     paddingBottom: 24,
     flex: 1,
   },
-  fieldGroup: { marginBottom: 18 },
-  label: { fontSize: 11, fontWeight: '600', color: Colors.textSecondary, letterSpacing: 0.8, marginBottom: 8 },
+  cardTitle: { fontSize: 20, fontWeight: '700', color: '#1A1A1A', marginBottom: 4 },
+  cardSubtitle: { fontSize: 13, color: '#888888', marginBottom: 20 },
+  fieldGroup: { marginBottom: 14 },
+  label: { fontSize: 13, fontWeight: '600', color: '#444444', marginBottom: 6 },
   inputRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: Colors.surface,
+    backgroundColor: '#FFFFFF',
     borderRadius: Radius.md,
-    borderWidth: 1.5,
-    borderColor: Colors.border,
+    borderWidth: 1,
+    borderColor: '#E8E8E8',
     paddingHorizontal: 14,
-    height: 52,
+    height: 50,
   },
   inputError: { borderColor: Colors.error },
   inputIcon: { marginRight: 10 },
-  input: { flex: 1, fontSize: FontSize.base, color: Colors.text, includeFontPadding: false },
-  errorText: { fontSize: 12, color: Colors.error, marginTop: 4 },
+  input: { flex: 1, fontSize: FontSize.base, color: '#1A1A1A', includeFontPadding: false },
+  errorText: { fontSize: 12, color: Colors.error, marginTop: 3 },
   registerBtn: {
     backgroundColor: Colors.primary,
     borderRadius: Radius.md,
     height: 54,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 8,
+    marginTop: 10,
+    marginBottom: 20,
     ...Shadow.md,
   },
-  registerBtnText: { fontSize: FontSize.lg, fontWeight: '700', color: '#FFFFFF' },
-  loginRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', paddingTop: 20 },
-  loginHint: { fontSize: FontSize.base, color: Colors.textSecondary },
+  registerBtnText: { fontSize: 15, fontWeight: '800', color: '#FFFFFF', letterSpacing: 1.2 },
+  loginRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center' },
+  loginHint: { fontSize: FontSize.base, color: '#888888' },
   loginLink: { fontSize: FontSize.base, color: Colors.primary, fontWeight: '700' },
 });

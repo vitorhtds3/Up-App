@@ -1,7 +1,8 @@
 import { Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
-import { Platform, View, StyleSheet } from 'react-native';
+import { Platform, View, Text, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { MaterialIcons } from '@expo/vector-icons';
 import { AuthProvider } from '../contexts/AuthContext';
 import { CartProvider } from '../contexts/CartContext';
 import { registerPushToken } from '../services/notificationService';
@@ -37,21 +38,43 @@ function NavigationGuard() {
   return null;
 }
 
+function StatusBar() {
+  const now = new Date();
+  const hh = now.getHours().toString().padStart(2, '0');
+  const mm = now.getMinutes().toString().padStart(2, '0');
+  return (
+    <View style={frameStyles.statusBar}>
+      <Text style={frameStyles.statusTime}>{hh}:{mm}</Text>
+      <View style={frameStyles.statusIcons}>
+        <MaterialIcons name="signal-cellular-alt" size={14} color="#fff" />
+        <MaterialIcons name="wifi" size={14} color="#fff" />
+        <View style={frameStyles.battery}>
+          <View style={frameStyles.batteryFill} />
+          <View style={frameStyles.batteryTip} />
+        </View>
+      </View>
+    </View>
+  );
+}
+
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <View style={styles.pageBackground}>
-      <View style={styles.phoneOuter}>
-        <View style={styles.phoneSideBtnLeft} />
-        <View style={styles.phoneSideBtnLeft2} />
-        <View style={styles.phoneSideBtnRight} />
-        <View style={styles.phoneInner}>
-          <View style={styles.notchRow}>
-            <View style={styles.notch} />
+    <View style={frameStyles.pageBackground}>
+      <View style={frameStyles.phoneOuter}>
+        <View style={frameStyles.phoneSideBtnLeft} />
+        <View style={frameStyles.phoneSideBtnLeft2} />
+        <View style={frameStyles.phoneSideBtnRight} />
+        <View style={frameStyles.phoneInner}>
+          <View style={frameStyles.dynamicIslandRow}>
+            <View style={frameStyles.dynamicIsland} />
           </View>
-          <View style={styles.screen}>
+          <StatusBar />
+          <View style={frameStyles.screen}>
             {children}
           </View>
-          <View style={styles.homeBar} />
+          <View style={frameStyles.homeBarRow}>
+            <View style={frameStyles.homeBar} />
+          </View>
         </View>
       </View>
     </View>
@@ -59,89 +82,132 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 }
 
 const PHONE_W = 375;
-const PHONE_H = 780;
+const PHONE_H = 768;
 
-const styles = StyleSheet.create({
+const frameStyles = StyleSheet.create({
   pageBackground: {
     flex: 1,
-    backgroundColor: '#1a1a2e',
+    backgroundColor: '#111827',
     alignItems: 'center',
     justifyContent: 'center',
   },
   phoneOuter: {
-    width: PHONE_W + 20,
-    height: PHONE_H + 20,
-    backgroundColor: '#1c1c1e',
-    borderRadius: 52,
-    borderWidth: 2,
-    borderColor: '#3a3a3c',
+    width: PHONE_W + 16,
+    height: PHONE_H + 16,
+    backgroundColor: '#1C1C1E',
+    borderRadius: 56,
+    borderWidth: 1.5,
+    borderColor: '#3A3A3C',
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 20 },
-    shadowOpacity: 0.6,
-    shadowRadius: 40,
+    shadowOffset: { width: 0, height: 24 },
+    shadowOpacity: 0.7,
+    shadowRadius: 48,
   },
   phoneSideBtnLeft: {
     position: 'absolute',
     left: -5,
-    top: 120,
-    width: 4,
-    height: 36,
-    backgroundColor: '#3a3a3c',
+    top: 130,
+    width: 3,
+    height: 32,
+    backgroundColor: '#3A3A3C',
     borderRadius: 2,
   },
   phoneSideBtnLeft2: {
     position: 'absolute',
     left: -5,
-    top: 170,
-    width: 4,
+    top: 176,
+    width: 3,
     height: 64,
-    backgroundColor: '#3a3a3c',
+    backgroundColor: '#3A3A3C',
     borderRadius: 2,
   },
   phoneSideBtnRight: {
     position: 'absolute',
     right: -5,
-    top: 150,
-    width: 4,
+    top: 160,
+    width: 3,
     height: 64,
-    backgroundColor: '#3a3a3c',
+    backgroundColor: '#3A3A3C',
     borderRadius: 2,
   },
   phoneInner: {
     width: PHONE_W,
     height: PHONE_H,
     backgroundColor: '#000',
-    borderRadius: 44,
+    borderRadius: 48,
     overflow: 'hidden',
     flexDirection: 'column',
   },
-  notchRow: {
-    height: 36,
+  dynamicIslandRow: {
+    height: 12,
     backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    paddingBottom: 4,
+    justifyContent: 'center',
+    paddingTop: 4,
   },
-  notch: {
+  dynamicIsland: {
     width: 120,
-    height: 28,
+    height: 34,
     backgroundColor: '#000',
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: '#1c1c1e',
+    borderWidth: 1.5,
+    borderColor: '#222',
+  },
+  statusBar: {
+    height: 28,
+    backgroundColor: '#000',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+  },
+  statusTime: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '600',
+    letterSpacing: 0.2,
+  },
+  statusIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  battery: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  batteryFill: {
+    width: 20,
+    height: 10,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 2,
+  },
+  batteryTip: {
+    width: 2,
+    height: 6,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 1,
+    marginLeft: 1,
   },
   screen: {
     flex: 1,
     backgroundColor: '#fff',
     overflow: 'hidden',
   },
-  homeBar: {
-    height: 28,
+  homeBarRow: {
+    height: 30,
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  homeBar: {
+    width: 130,
+    height: 5,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 3,
+    opacity: 0.3,
   },
 });
 
