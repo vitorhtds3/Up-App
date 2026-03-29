@@ -203,7 +203,7 @@ export default function RestaurantScreen() {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: Colors.surface, gap: 12 }}>
         <MaterialIcons name="storefront" size={56} color={Colors.border} />
         <Text style={{ fontSize: 16, color: Colors.textSecondary }}>Restaurante não encontrado</Text>
-        <TouchableOpacity onPress={() => router.back()} style={{ backgroundColor: Colors.primary, borderRadius: Radius.md, paddingHorizontal: 24, paddingVertical: 12 }}>
+        <TouchableOpacity onPress={() => router.canGoBack() ? router.back() : router.replace('/(tabs)')} style={{ backgroundColor: Colors.primary, borderRadius: Radius.md, paddingHorizontal: 24, paddingVertical: 12 }}>
           <Text style={{ color: '#fff', fontWeight: '700' }}>Voltar</Text>
         </TouchableOpacity>
       </View>
@@ -217,7 +217,7 @@ export default function RestaurantScreen() {
         style={[styles.navBar, { paddingTop: insets.top, backgroundColor: headerBg }]}
         pointerEvents="box-none"
       >
-        <TouchableOpacity style={styles.navBtn} onPress={() => router.back()} activeOpacity={0.85}>
+        <TouchableOpacity style={styles.navBtn} onPress={() => router.canGoBack() ? router.back() : router.replace('/(tabs)')} activeOpacity={0.85}>
           <MaterialIcons name="arrow-back" size={22} color={Colors.text} />
         </TouchableOpacity>
         <Animated.Text style={[styles.navTitle, { opacity: titleOpacity }]} numberOfLines={1}>

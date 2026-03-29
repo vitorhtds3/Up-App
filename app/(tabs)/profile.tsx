@@ -521,9 +521,13 @@ export default function ProfileScreen() {
                 <Text style={styles.avatarText}>{initials}</Text>
               </View>
             )}
-            <View style={styles.avatarEditBadge}>
+            <TouchableOpacity
+              style={styles.avatarEditBadge}
+              onPress={() => Alert.alert('Alterar foto', 'Esta função estará disponível em breve na versão do aplicativo móvel.', [{ text: 'OK' }])}
+              activeOpacity={0.8}
+            >
               <MaterialIcons name="camera-alt" size={14} color="#fff" />
-            </View>
+            </TouchableOpacity>
           </View>
           <Text style={styles.name}>{displayName}</Text>
           <Text style={styles.email}>{displayEmail}</Text>

@@ -82,7 +82,7 @@ const timelineStyles = StyleSheet.create({
   cancelledText: { fontSize: 13, color: Colors.error, fontWeight: '600' },
 });
 
-function OrderCard({ order, onPress }: { order: any; onPress: () => void }) {
+function OrderCard({ order, onPress, onRepeat }: { order: any; onPress: () => void; onRepeat: () => void }) {
   const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG.pending;
   const date = new Date(order.created_at).toLocaleDateString('pt-BR', {
     day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit',
@@ -118,7 +118,14 @@ function OrderCard({ order, onPress }: { order: any; onPress: () => void }) {
 
       <View style={styles.footer}>
         <Text style={styles.total}>R$ {order.total?.toFixed(2)}</Text>
-        <Text style={styles.repeat}>Repetir pedido</Text>
+        <TouchableOpacity
+          onPress={(e) => { e.stopPropagation?.(); onRepeat(); }}
+          activeOpacity={0.75}
+          style={styles.repeatBtn}
+        >
+          <MaterialIcons name="replay" size={14} color={Colors.primary} />
+          <Text style={styles.repeat}>Repetir pedido</Text>
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -182,7 +189,13 @@ export default function OrdersScreen() {
           keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ padding: 16, gap: 14, paddingBottom: 32 }}
-          renderItem={({ item }) => <OrderCard order={item} onPress={() => {}} />}
+          renderItem={({ item }) => (
+            <OrderCard
+              order={item}
+              onPress={() => item.restaurant_id && router.push({ pathname: '/restaurant/[id]', params: { id: item.restaurant_id } })}
+              onRepeat={() => item.restaurant_id && router.push({ pathname: '/restaurant/[id]', params: { id: item.restaurant_id } })}
+            />
+          )}
         />
       )}
     </View>
@@ -205,6 +218,7 @@ const styles = StyleSheet.create({
   more: { fontSize: 12, color: Colors.textLight, fontStyle: 'italic' },
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: Colors.border },
   total: { fontSize: 16, fontWeight: '700', color: Colors.text },
+  repeatBtn: { flexDirection: 'row', alignItems: 'center', gap: 4 },
   repeat: { fontSize: 14, fontWeight: '600', color: Colors.primary },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12, paddingHorizontal: 32 },
   emptyTitle: { fontSize: 20, fontWeight: '700', color: Colors.text },
