@@ -16,12 +16,14 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useAuth } from '../hooks/useAuth';
+import { supabase } from '../lib/supabase';
 import { Colors, Spacing, Radius, FontSize, Shadow } from '../constants/theme';
 
 export default function LoginScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { signIn } = useAuth();
+  const [resetLoading, setResetLoading] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,6 +50,21 @@ export default function LoginScreen() {
       Alert.alert('Erro ao entrar', error);
     } else {
       router.replace('/(tabs)');
+    }
+  };
+
+  const handleForgotPassword = async () => {
+    if (!email.trim() || !email.includes('@')) {
+      Alert.alert('Digite seu email', 'Informe o email cadastrado para receber o link de redefinição.');
+      return;
+    }
+    setResetLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim());
+    setResetLoading(false);
+    if (error) {
+      Alert.alert('Erro', error.message);
+    } else {
+      Alert.alert('Email enviado!', `Enviamos um link de redefinição de senha para ${email.trim()}.`);
     }
   };
 
@@ -133,8 +150,10 @@ export default function LoginScreen() {
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.forgotBtn} activeOpacity={0.7}>
-            <Text style={styles.forgotText}>Esqueceu a senha?</Text>
+          <TouchableOpacity style={styles.forgotBtn} activeOpacity={0.7} onPress={handleForgotPassword} disabled={resetLoading}>
+            <Text style={styles.forgotText}>
+              {resetLoading ? 'Enviando...' : 'Esqueceu a senha?'}
+            </Text>
           </TouchableOpacity>
 
           <View style={styles.registerRow}>

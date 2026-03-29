@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter, useSegments } from 'expo-router';
 import { useEffect } from 'react';
 import { Platform, View, StyleSheet } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -14,6 +14,26 @@ function PushRegistrar() {
       registerPushToken();
     }
   }, [user?.id]);
+  return null;
+}
+
+function NavigationGuard() {
+  const { user, loading } = useAuth();
+  const segments = useSegments();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (loading) return;
+    const isPublicRoute =
+      segments.length === 0 ||
+      segments[0] === 'login' ||
+      segments[0] === 'register' ||
+      segments[0] === 'index';
+    if (!user && !isPublicRoute) {
+      router.replace('/login');
+    }
+  }, [user, loading, segments]);
+
   return null;
 }
 
@@ -131,9 +151,9 @@ export default function RootLayout() {
       <AuthProvider>
         <CartProvider>
           <PushRegistrar />
+          <NavigationGuard />
           <Stack screenOptions={{ headerShown: false }}>
             <Stack.Screen name="index" />
-            <Stack.Screen name="splash" />
             <Stack.Screen name="login" />
             <Stack.Screen name="register" />
             <Stack.Screen name="(tabs)" />

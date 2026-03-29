@@ -462,15 +462,39 @@ export default function ProfileScreen() {
   const displayEmail = profile?.email || user?.email || '';
   const initials = displayName.split(' ').map((n: string) => n[0]).join('').toUpperCase().slice(0, 2);
 
+  const handleHelp = () => {
+    Alert.alert(
+      'Ajuda e Suporte',
+      'Entre em contato pelo email:\nsuporte@upapp.com.br\n\nHorário: seg-sex 8h–18h',
+      [{ text: 'OK' }]
+    );
+  };
+
+  const handleRate = () => {
+    Alert.alert(
+      'Avaliar o Up App',
+      'Obrigado por usar o Up App! Sua avaliação nos ajuda a melhorar cada vez mais.',
+      [{ text: 'Cancelar', style: 'cancel' }, { text: 'Avaliar ⭐', onPress: () => {} }]
+    );
+  };
+
+  const handleAbout = () => {
+    Alert.alert(
+      'Sobre o Up App',
+      'Up App — Delivery Rápido e Fácil\nVersão 1.0.0\n\nConecte-se aos melhores restaurantes da sua cidade com praticidade e segurança.',
+      [{ text: 'OK' }]
+    );
+  };
+
   const MENU_ITEMS = [
-    { icon: 'place', label: 'Meus endereços', badge: addresses.length > 0 ? String(addresses.length) : null, modal: 'addresses' as ModalType },
-    { icon: 'payment', label: 'Formas de pagamento', badge: null, modal: 'payments' as ModalType },
-    { icon: 'history', label: 'Histórico de pedidos', badge: ordersCount > 0 ? String(ordersCount) : null, modal: 'orders' as ModalType },
-    { icon: 'favorite', label: 'Restaurantes favoritos', badge: favoritesCount > 0 ? String(favoritesCount) : null, modal: 'favorites' as ModalType },
-    { icon: 'notifications', label: 'Notificações', badge: unreadCount > 0 ? String(unreadCount) : null, modal: 'notifications' as ModalType },
-    { icon: 'help-outline', label: 'Ajuda e suporte', badge: null, modal: null },
-    { icon: 'star-outline', label: 'Avaliar o app', badge: null, modal: null },
-    { icon: 'info-outline', label: 'Sobre o Up App', badge: null, modal: null },
+    { icon: 'place', label: 'Meus endereços', badge: addresses.length > 0 ? String(addresses.length) : null, modal: 'addresses' as ModalType, onPress: null as (() => void) | null },
+    { icon: 'payment', label: 'Formas de pagamento', badge: null, modal: 'payments' as ModalType, onPress: null as (() => void) | null },
+    { icon: 'history', label: 'Histórico de pedidos', badge: ordersCount > 0 ? String(ordersCount) : null, modal: 'orders' as ModalType, onPress: null as (() => void) | null },
+    { icon: 'favorite', label: 'Restaurantes favoritos', badge: favoritesCount > 0 ? String(favoritesCount) : null, modal: 'favorites' as ModalType, onPress: null as (() => void) | null },
+    { icon: 'notifications', label: 'Notificações', badge: unreadCount > 0 ? String(unreadCount) : null, modal: 'notifications' as ModalType, onPress: null as (() => void) | null },
+    { icon: 'help-outline', label: 'Ajuda e suporte', badge: null, modal: null, onPress: handleHelp },
+    { icon: 'star-outline', label: 'Avaliar o app', badge: null, modal: null, onPress: handleRate },
+    { icon: 'info-outline', label: 'Sobre o Up App', badge: null, modal: null, onPress: handleAbout },
   ];
 
   return (
@@ -534,7 +558,10 @@ export default function ProfileScreen() {
               key={idx}
               style={[styles.menuItem, idx < MENU_ITEMS.length - 1 && styles.menuItemBorder]}
               activeOpacity={0.7}
-              onPress={() => item.modal ? openModal(item.modal) : undefined}
+              onPress={() => {
+                if (item.modal) openModal(item.modal);
+                else if (item.onPress) item.onPress();
+              }}
             >
               <View style={styles.menuIconWrap}>
                 <MaterialIcons name={item.icon as any} size={20} color={Colors.primary} />

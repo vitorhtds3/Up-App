@@ -159,6 +159,7 @@ export default function RestaurantScreen() {
   const [pageLoading, setPageLoading] = useState(true);
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (id) {
@@ -222,8 +223,16 @@ export default function RestaurantScreen() {
         <Animated.Text style={[styles.navTitle, { opacity: titleOpacity }]} numberOfLines={1}>
           {restaurant.name}
         </Animated.Text>
-        <TouchableOpacity style={styles.navBtn} activeOpacity={0.85}>
-          <MaterialIcons name="favorite-border" size={22} color={Colors.text} />
+        <TouchableOpacity
+          style={styles.navBtn}
+          activeOpacity={0.85}
+          onPress={() => setIsFavorite((v) => !v)}
+        >
+          <MaterialIcons
+            name={isFavorite ? 'favorite' : 'favorite-border'}
+            size={22}
+            color={isFavorite ? Colors.error : Colors.text}
+          />
         </TouchableOpacity>
       </Animated.View>
 

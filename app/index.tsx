@@ -1,50 +1,51 @@
-import { useEffect, useRef } from 'react';
-import { View, Animated, StyleSheet, Dimensions } from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { View, Animated, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../hooks/useAuth';
 import { Colors } from '../constants/theme';
 
-const { width, height } = Dimensions.get('window');
+const SPLASH_DURATION = 4000;
 
 export default function SplashScreen() {
   const router = useRouter();
   const { user, loading } = useAuth();
-  const scaleAnim = useRef(new Animated.Value(0.4)).current;
+  const scaleAnim = useRef(new Animated.Value(0.3)).current;
   const opacityAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(40)).current;
+  const [timerDone, setTimerDone] = useState(false);
 
   useEffect(() => {
     Animated.parallel([
       Animated.spring(scaleAnim, {
         toValue: 1,
-        tension: 80,
-        friction: 8,
-        useNativeDriver: true,
+        tension: 60,
+        friction: 7,
+        useNativeDriver: false,
       }),
       Animated.timing(opacityAnim, {
         toValue: 1,
-        duration: 600,
-        useNativeDriver: true,
+        duration: 900,
+        useNativeDriver: false,
       }),
       Animated.timing(slideAnim, {
         toValue: 0,
-        duration: 600,
-        useNativeDriver: true,
+        duration: 900,
+        useNativeDriver: false,
       }),
     ]).start();
 
-    const timer = setTimeout(() => {
-      if (!loading) {
-        if (user) {
-          router.replace('/(tabs)');
-        } else {
-          router.replace('/login');
-        }
-      }
-    }, 2200);
-
+    const timer = setTimeout(() => setTimerDone(true), SPLASH_DURATION);
     return () => clearTimeout(timer);
-  }, [loading, user]);
+  }, []);
+
+  useEffect(() => {
+    if (!timerDone || loading) return;
+    if (user) {
+      router.replace('/(tabs)');
+    } else {
+      router.replace('/login');
+    }
+  }, [timerDone, loading, user]);
 
   return (
     <View style={styles.container}>
@@ -54,7 +55,6 @@ export default function SplashScreen() {
           { transform: [{ scale: scaleAnim }], opacity: opacityAnim },
         ]}
       >
-        {/* UP Logo */}
         <View style={styles.logoBox}>
           <Animated.Text style={styles.logoText}>UP</Animated.Text>
           <View style={styles.logoBowl} />
@@ -80,43 +80,45 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 16,
+    gap: 20,
   },
   logoContainer: {
     alignItems: 'center',
   },
   logoBox: {
-    width: 120,
-    height: 120,
+    width: 130,
+    height: 130,
     backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 28,
+    borderRadius: 32,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+    borderWidth: 2,
+    borderColor: 'rgba(255,255,255,0.3)',
   },
   logoText: {
-    fontSize: 60,
+    fontSize: 64,
     fontWeight: '900',
     color: '#FFFFFF',
     letterSpacing: -2,
   },
   logoBowl: {
     position: 'absolute',
-    bottom: 22,
-    width: 28,
-    height: 12,
-    borderBottomLeftRadius: 14,
-    borderBottomRightRadius: 14,
+    bottom: 24,
+    width: 30,
+    height: 13,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
     borderWidth: 3,
     borderTopWidth: 0,
     borderColor: '#FFFFFF',
   },
   textContainer: {
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
   },
   appName: {
-    fontSize: 36,
+    fontSize: 38,
     fontWeight: '800',
     color: '#FFFFFF',
     letterSpacing: -0.5,
@@ -125,5 +127,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'rgba(255,255,255,0.85)',
     fontWeight: '400',
+    letterSpacing: 0.3,
   },
 });

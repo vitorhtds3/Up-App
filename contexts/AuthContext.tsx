@@ -47,12 +47,31 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = async (email: string, password: string, name: string) => {
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { name } },
+        options: { data: { name, role: 'client' } },
       });
       if (error) return { error: error.message };
+
+      if (data.user) {
+        const { error: dbError } = await supabase
+          .from('users')
+          .upsert(
+            {
+              id: data.user.id,
+              name: name.trim(),
+              email: email.trim().toLowerCase(),
+              role: 'client',
+              phone: null,
+            },
+            { onConflict: 'id' }
+          );
+        if (dbError) {
+          console.error('[Auth] Error saving user to DB:', dbError.message);
+        }
+      }
+
       return { error: null };
     } catch {
       return { error: 'Erro ao criar conta. Verifique sua conexão.' };
@@ -60,7 +79,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const signOut = async () => {
-    // Remove push token before signing out so notifications stop
     await removePushToken().catch(() => {});
     await supabase.auth.signOut();
   };
