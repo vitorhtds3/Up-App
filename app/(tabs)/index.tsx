@@ -9,6 +9,7 @@ import {
   Dimensions,
   Animated,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { Image } from 'expo-image';
 import { useRouter } from 'expo-router';
@@ -19,7 +20,8 @@ import { Colors, Spacing, Radius, FontSize, Shadow } from '../../constants/theme
 import { fetchRestaurants, fetchStories } from '../../services/restaurantService';
 import { useCart } from '../../hooks/useCart';
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const { width: RAW_WIDTH } = Dimensions.get('window');
+const SCREEN_WIDTH = Platform.OS === 'web' ? Math.min(RAW_WIDTH, 390) : RAW_WIDTH;
 
 const CATEGORIES_GRID = [
   { id: '1', name: 'Restaurantes', image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&q=80', color: '#FFF3E0' },
@@ -101,8 +103,8 @@ function BannerCarousel({ stories }: { stories: any[] }) {
 }
 
 const bannerStyles = StyleSheet.create({
-  container: { marginHorizontal: 16, marginBottom: 20 },
-  item: { width: SCREEN_WIDTH - 32, height: 160, borderRadius: Radius.lg, overflow: 'hidden' },
+  container: { marginHorizontal: 16, marginBottom: 16 },
+  item: { width: SCREEN_WIDTH - 32, height: 140, borderRadius: Radius.lg, overflow: 'hidden' },
   image: { width: '100%', height: '100%' },
   overlay: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
@@ -142,11 +144,11 @@ function CategoryGrid() {
 }
 
 const catStyles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 16, gap: 10, marginBottom: 20 },
-  item: { width: (SCREEN_WIDTH - 32 - 30) / 4, borderRadius: Radius.md, overflow: 'hidden', alignItems: 'center' },
-  img: { width: '100%', height: 80, borderRadius: Radius.md },
-  seeAllBox: { width: '100%', height: 80, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0E8FF' },
-  name: { fontSize: 11, fontWeight: '600', color: Colors.text, textAlign: 'center', paddingVertical: 6, paddingHorizontal: 2 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 16, gap: 8, marginBottom: 16 },
+  item: { width: (SCREEN_WIDTH - 32 - 24) / 4, borderRadius: Radius.md, overflow: 'hidden', alignItems: 'center' },
+  img: { width: '100%', height: 70, borderRadius: Radius.md },
+  seeAllBox: { width: '100%', height: 70, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0E8FF' },
+  name: { fontSize: 10, fontWeight: '600', color: Colors.text, textAlign: 'center', paddingVertical: 5, paddingHorizontal: 2 },
 });
 
 // ─── Food Categories ──────────────────────────────────────────────
@@ -264,8 +266,8 @@ function RestaurantCard({ restaurant }: { restaurant: any }) {
 }
 
 const rcStyles = StyleSheet.create({
-  card: { backgroundColor: '#fff', borderRadius: Radius.lg, marginHorizontal: 16, marginBottom: 14, overflow: 'hidden', ...Shadow.sm },
-  imgWrap: { position: 'relative', height: 160 },
+  card: { backgroundColor: '#fff', borderRadius: Radius.lg, marginHorizontal: 16, marginBottom: 12, overflow: 'hidden', ...Shadow.sm },
+  imgWrap: { position: 'relative', height: 140 },
   image: { width: '100%', height: '100%' },
   closedOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
   closedText: { color: '#fff', fontWeight: '700', fontSize: 18 },

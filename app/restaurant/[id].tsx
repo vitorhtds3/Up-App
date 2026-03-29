@@ -214,8 +214,7 @@ export default function RestaurantScreen() {
     <View style={{ flex: 1, backgroundColor: Colors.surface }}>
       {/* Floating Nav */}
       <Animated.View
-        style={[styles.navBar, { paddingTop: insets.top, backgroundColor: headerBg }]}
-        pointerEvents="box-none"
+        style={[styles.navBar, { paddingTop: insets.top, backgroundColor: headerBg, pointerEvents: 'box-none' }]}
       >
         <TouchableOpacity style={styles.navBtn} onPress={() => router.canGoBack() ? router.back() : router.replace('/(tabs)')} activeOpacity={0.85}>
           <MaterialIcons name="arrow-back" size={22} color={Colors.text} />

@@ -80,7 +80,7 @@ export default function LoginScreen() {
         showsVerticalScrollIndicator={false}
       >
         {/* Header with Logo */}
-        <View style={[styles.header, { paddingTop: insets.top + 40 }]}>
+        <View style={[styles.header, { paddingTop: insets.top + 20 }]}>
           <View style={styles.logoBox}>
             <Text style={styles.logoText}>UP</Text>
             <View style={styles.logoBowl} />
@@ -176,63 +176,63 @@ const styles = StyleSheet.create({
   },
   header: {
     alignItems: 'center',
-    paddingBottom: 40,
-    gap: 6,
+    paddingBottom: 28,
+    gap: 4,
   },
   logoBox: {
-    width: 90,
-    height: 90,
+    width: 76,
+    height: 76,
     backgroundColor: 'rgba(255,255,255,0.2)',
-    borderRadius: 22,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
   },
   logoText: {
-    fontSize: 44,
+    fontSize: 36,
     fontWeight: '900',
     color: '#FFFFFF',
     letterSpacing: -1,
   },
   logoBowl: {
     position: 'absolute',
-    bottom: 16,
-    width: 22,
-    height: 9,
-    borderBottomLeftRadius: 11,
-    borderBottomRightRadius: 11,
-    borderWidth: 2.5,
+    bottom: 13,
+    width: 18,
+    height: 8,
+    borderBottomLeftRadius: 9,
+    borderBottomRightRadius: 9,
+    borderWidth: 2,
     borderTopWidth: 0,
     borderColor: '#FFFFFF',
   },
   appName: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '800',
     color: '#FFFFFF',
   },
   tagline: {
-    fontSize: 15,
+    fontSize: 14,
     color: 'rgba(255,255,255,0.85)',
   },
   card: {
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 32,
     borderTopRightRadius: 32,
-    paddingHorizontal: 28,
-    paddingTop: 36,
-    paddingBottom: 24,
+    paddingHorizontal: 24,
+    paddingTop: 28,
+    paddingBottom: 20,
     flex: 1,
-    minHeight: 420,
+    minHeight: 380,
   },
   cardTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '700',
     color: Colors.text,
     textAlign: 'center',
-    marginBottom: 28,
+    marginBottom: 22,
   },
   fieldGroup: {
-    marginBottom: 20,
+    marginBottom: 16,
   },
   label: {
     fontSize: 11,

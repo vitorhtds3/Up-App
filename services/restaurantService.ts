@@ -72,7 +72,7 @@ export async function fetchProducts(restaurantId: string) {
     .select('*')
     .eq('restaurant_id', restaurantId)
     .eq('active', true)
-    .order('created_at', { ascending: false });
+    .order('name', { ascending: true });
 
   if (error) {
     console.error('[restaurantService] fetchProducts error:', error.message);
@@ -108,7 +108,7 @@ export async function fetchStories() {
     .from('stories')
     .select('*, restaurants(name, banner_url)')
     .gt('expires_at', now)
-    .order('created_at', { ascending: false })
+    .order('id', { ascending: false })
     .limit(10);
 
   if (error) {
