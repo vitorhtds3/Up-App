@@ -104,18 +104,18 @@ function BannerCarousel({ stories }: { stories: any[] }) {
 }
 
 const bannerStyles = StyleSheet.create({
-  container: { marginHorizontal: 16, marginBottom: 16 },
-  item: { width: SCREEN_WIDTH - 32, height: 140, borderRadius: Radius.lg, overflow: 'hidden' },
+  container: { marginHorizontal: 16, marginBottom: 12 },
+  item: { width: SCREEN_WIDTH - 32, height: 110, borderRadius: Radius.lg, overflow: 'hidden' },
   image: { width: '100%', height: '100%' },
   overlay: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    backgroundColor: 'rgba(0,0,0,0.45)', padding: 14,
+    backgroundColor: 'rgba(0,0,0,0.42)', padding: 10,
     borderBottomLeftRadius: Radius.lg, borderBottomRightRadius: Radius.lg,
   },
-  title: { color: '#fff', fontWeight: '700', fontSize: 16 },
-  dots: { flexDirection: 'row', justifyContent: 'center', gap: 6, marginTop: 10 },
-  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: Colors.border },
-  dotActive: { backgroundColor: Colors.primary, width: 18 },
+  title: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  dots: { flexDirection: 'row', justifyContent: 'center', gap: 5, marginTop: 8 },
+  dot: { width: 5, height: 5, borderRadius: 2.5, backgroundColor: Colors.border },
+  dotActive: { backgroundColor: Colors.primary, width: 14 },
 });
 
 // ─── Category Grid ────────────────────────────────────────────────
@@ -145,20 +145,20 @@ function CategoryGrid() {
 }
 
 const catStyles = StyleSheet.create({
-  grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 16, gap: 8, marginBottom: 16 },
-  item: { width: (SCREEN_WIDTH - 32 - 24) / 4, borderRadius: Radius.md, overflow: 'hidden', alignItems: 'center' },
-  img: { width: '100%', height: 70, borderRadius: Radius.md },
-  seeAllBox: { width: '100%', height: 70, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0E8FF' },
-  name: { fontSize: 10, fontWeight: '600', color: Colors.text, textAlign: 'center', paddingVertical: 5, paddingHorizontal: 2 },
+  grid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 16, gap: 6, marginBottom: 12 },
+  item: { width: (SCREEN_WIDTH - 32 - 18) / 4, borderRadius: Radius.md, overflow: 'hidden', alignItems: 'center' },
+  img: { width: '100%', height: 56, borderRadius: Radius.md },
+  seeAllBox: { width: '100%', height: 56, alignItems: 'center', justifyContent: 'center', backgroundColor: '#F0E8FF' },
+  name: { fontSize: 9, fontWeight: '600', color: Colors.text, textAlign: 'center', paddingVertical: 4, paddingHorizontal: 2 },
 });
 
 // ─── Food Categories ──────────────────────────────────────────────
 function FoodCategoryScroll() {
   const [selected, setSelected] = useState<string | null>(null);
   return (
-    <View style={{ marginBottom: 20 }}>
+    <View style={{ marginBottom: 14 }}>
       <Text style={sectionTitle}>Categorias</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 10 }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 8 }}>
         {FOOD_CATEGORIES.map((fc) => (
           <TouchableOpacity
             key={fc.id}
@@ -178,14 +178,14 @@ function FoodCategoryScroll() {
 }
 
 const fcStyles = StyleSheet.create({
-  item: { width: 130, height: 80, borderRadius: Radius.md, overflow: 'hidden' },
+  item: { width: 100, height: 60, borderRadius: Radius.md, overflow: 'hidden' },
   img: { width: '100%', height: '100%' },
   overlay: {
     position: 'absolute', bottom: 0, left: 0, right: 0,
-    paddingVertical: 8, paddingHorizontal: 10,
+    paddingVertical: 6, paddingHorizontal: 8,
     borderBottomLeftRadius: Radius.md, borderBottomRightRadius: Radius.md,
   },
-  name: { color: '#fff', fontWeight: '700', fontSize: 13 },
+  name: { color: '#fff', fontWeight: '700', fontSize: 11 },
 });
 
 // ─── Top Stores (real restaurants as stories) ─────────────────────
@@ -193,9 +193,9 @@ function TopStores({ restaurants }: { restaurants: any[] }) {
   const router = useRouter();
   if (restaurants.length === 0) return null;
   return (
-    <View style={{ marginBottom: 20 }}>
+    <View style={{ marginBottom: 14 }}>
       <Text style={sectionTitle}>Top Lojas</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 14 }}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ paddingHorizontal: 16, gap: 10 }}>
         {restaurants.slice(0, 8).map((r) => (
           <TouchableOpacity
             key={r.id}
@@ -215,10 +215,10 @@ function TopStores({ restaurants }: { restaurants: any[] }) {
 }
 
 const storyStyles = StyleSheet.create({
-  item: { width: 72, alignItems: 'center', gap: 6 },
-  ring: { width: 68, height: 68, borderRadius: 34, borderWidth: 2.5, borderColor: Colors.primary, padding: 2, overflow: 'hidden' },
-  img: { width: '100%', height: '100%', borderRadius: 34 },
-  name: { fontSize: 11, color: Colors.text, textAlign: 'center', fontWeight: '500', lineHeight: 14 },
+  item: { width: 58, alignItems: 'center', gap: 4 },
+  ring: { width: 54, height: 54, borderRadius: 27, borderWidth: 2, borderColor: Colors.primary, padding: 2, overflow: 'hidden' },
+  img: { width: '100%', height: '100%', borderRadius: 27 },
+  name: { fontSize: 10, color: Colors.text, textAlign: 'center', fontWeight: '500', lineHeight: 13 },
 });
 
 // ─── Restaurant Card ──────────────────────────────────────────────
@@ -267,26 +267,26 @@ function RestaurantCard({ restaurant }: { restaurant: any }) {
 }
 
 const rcStyles = StyleSheet.create({
-  card: { backgroundColor: '#fff', borderRadius: Radius.lg, marginHorizontal: 16, marginBottom: 12, overflow: 'hidden', ...Shadow.sm },
-  imgWrap: { position: 'relative', height: 140 },
+  card: { backgroundColor: '#fff', borderRadius: Radius.lg, marginHorizontal: 16, marginBottom: 10, overflow: 'hidden', ...Shadow.sm },
+  imgWrap: { position: 'relative', height: 112 },
   image: { width: '100%', height: '100%' },
   closedOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', alignItems: 'center', justifyContent: 'center' },
-  closedText: { color: '#fff', fontWeight: '700', fontSize: 18 },
-  freeBadge: { position: 'absolute', top: 10, left: 10, backgroundColor: Colors.success, borderRadius: Radius.full, paddingHorizontal: 10, paddingVertical: 3 },
-  freeBadgeText: { color: '#fff', fontSize: 11, fontWeight: '700' },
-  info: { padding: 14 },
-  name: { fontSize: 16, fontWeight: '700', color: Colors.text },
-  category: { fontSize: 13, color: Colors.textSecondary, marginTop: 2 },
-  meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 },
+  closedText: { color: '#fff', fontWeight: '700', fontSize: 16 },
+  freeBadge: { position: 'absolute', top: 8, left: 8, backgroundColor: Colors.success, borderRadius: Radius.full, paddingHorizontal: 8, paddingVertical: 2 },
+  freeBadgeText: { color: '#fff', fontSize: 10, fontWeight: '700' },
+  info: { paddingHorizontal: 12, paddingVertical: 10 },
+  name: { fontSize: 14, fontWeight: '700', color: Colors.text },
+  category: { fontSize: 12, color: Colors.textSecondary, marginTop: 1 },
+  meta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 6 },
   ratingRow: { flexDirection: 'row', alignItems: 'center', gap: 2 },
-  rating: { fontSize: 13, color: Colors.text, fontWeight: '600' },
-  dot: { color: Colors.textLight, fontSize: 10 },
-  time: { fontSize: 13, color: Colors.textSecondary },
-  fee: { fontSize: 13, color: Colors.textSecondary },
+  rating: { fontSize: 12, color: Colors.text, fontWeight: '600' },
+  dot: { color: Colors.textLight, fontSize: 9 },
+  time: { fontSize: 12, color: Colors.textSecondary },
+  fee: { fontSize: 12, color: Colors.textSecondary },
 });
 
 const sectionTitle = {
-  fontSize: 18, fontWeight: '700' as const, color: Colors.text, marginBottom: 14, paddingHorizontal: 16,
+  fontSize: 15, fontWeight: '700' as const, color: Colors.text, marginBottom: 10, paddingHorizontal: 16,
 };
 
 // ─── Home Screen ──────────────────────────────────────────────────
@@ -314,17 +314,17 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: Colors.surface }}>
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 24 }}>
+      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 16 }}>
         {/* Header */}
-        <LinearGradient colors={[Colors.primary, Colors.primaryDark]} style={[headerStyles.gradient, { paddingTop: insets.top + 12 }]}>
+        <LinearGradient colors={[Colors.primary, Colors.primaryDark]} style={[headerStyles.gradient, { paddingTop: insets.top + 8 }]}>
           <View style={headerStyles.container}>
             <View style={headerStyles.location}>
-              <MaterialIcons name="place" size={18} color="rgba(255,255,255,0.9)" />
+              <MaterialIcons name="place" size={16} color="rgba(255,255,255,0.9)" />
               <Text style={headerStyles.locationText}>Centro, Confresa</Text>
-              <MaterialIcons name="keyboard-arrow-down" size={18} color="rgba(255,255,255,0.7)" />
+              <MaterialIcons name="keyboard-arrow-down" size={16} color="rgba(255,255,255,0.7)" />
             </View>
             <TouchableOpacity style={headerStyles.cartBtn} onPress={() => router.push('/cart')} activeOpacity={0.85}>
-              <MaterialIcons name="shopping-bag" size={22} color="#fff" />
+              <MaterialIcons name="shopping-bag" size={20} color="#fff" />
               {totalItems > 0 ? (
                 <View style={headerStyles.badge}>
                   <Text style={headerStyles.badgeText}>{totalItems}</Text>
@@ -333,13 +333,13 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={searchStyles.bar} activeOpacity={0.8} onPress={() => router.push('/(tabs)/search')}>
-            <MaterialIcons name="search" size={20} color={Colors.textLight} />
+            <MaterialIcons name="search" size={18} color={Colors.textLight} />
             <Text style={searchStyles.placeholder}>Buscar restaurantes ou pratos...</Text>
           </TouchableOpacity>
         </LinearGradient>
 
         {/* Category Grid */}
-        <View style={{ marginTop: 20 }}>
+        <View style={{ marginTop: 14 }}>
           <CategoryGrid />
         </View>
 
@@ -351,20 +351,20 @@ export default function HomeScreen() {
 
         {/* Top Stores */}
         {loading ? (
-          <ActivityIndicator color={Colors.primary} style={{ marginVertical: 20 }} />
+          <ActivityIndicator color={Colors.primary} style={{ marginVertical: 16 }} />
         ) : (
           <TopStores restaurants={restaurants} />
         )}
 
         {/* Latest Restaurants */}
-        <View style={{ marginBottom: 8 }}>
+        <View style={{ marginBottom: 4 }}>
           <Text style={sectionTitle}>Últimas Lojas</Text>
           {loading ? (
-            <ActivityIndicator color={Colors.primary} style={{ marginVertical: 20 }} />
+            <ActivityIndicator color={Colors.primary} style={{ marginVertical: 16 }} />
           ) : restaurants.length === 0 ? (
-            <View style={{ alignItems: 'center', paddingVertical: 32, gap: 8 }}>
-              <MaterialIcons name="storefront" size={48} color={Colors.border} />
-              <Text style={{ fontSize: 15, color: Colors.textSecondary }}>Nenhum restaurante disponível</Text>
+            <View style={{ alignItems: 'center', paddingVertical: 24, gap: 8 }}>
+              <MaterialIcons name="storefront" size={40} color={Colors.border} />
+              <Text style={{ fontSize: 14, color: Colors.textSecondary }}>Nenhum restaurante disponível</Text>
             </View>
           ) : (
             restaurants.map((r) => <RestaurantCard key={r.id} restaurant={r} />)
@@ -376,16 +376,16 @@ export default function HomeScreen() {
 }
 
 const headerStyles = StyleSheet.create({
-  gradient: { paddingBottom: 16 },
-  container: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingBottom: 14 },
+  gradient: { paddingBottom: 12 },
+  container: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, paddingBottom: 10 },
   location: { flexDirection: 'row', alignItems: 'center', gap: 4, flex: 1 },
-  locationText: { fontSize: 15, fontWeight: '700', color: '#fff' },
+  locationText: { fontSize: 14, fontWeight: '700', color: '#fff' },
   cartBtn: { position: 'relative', padding: 4 },
-  badge: { position: 'absolute', top: 0, right: 0, backgroundColor: '#fff', borderRadius: 10, minWidth: 18, height: 18, alignItems: 'center', justifyContent: 'center' },
-  badgeText: { color: Colors.primary, fontSize: 10, fontWeight: '800' },
+  badge: { position: 'absolute', top: 0, right: 0, backgroundColor: '#fff', borderRadius: 9, minWidth: 16, height: 16, alignItems: 'center', justifyContent: 'center' },
+  badgeText: { color: Colors.primary, fontSize: 9, fontWeight: '800' },
 });
 
 const searchStyles = StyleSheet.create({
-  bar: { flexDirection: 'row', alignItems: 'center', gap: 10, backgroundColor: '#fff', marginHorizontal: 16, borderRadius: Radius.md, paddingHorizontal: 14, height: 48, ...Shadow.md },
-  placeholder: { fontSize: 14, color: Colors.textLight, flex: 1 },
+  bar: { flexDirection: 'row', alignItems: 'center', gap: 8, backgroundColor: '#fff', marginHorizontal: 16, borderRadius: Radius.md, paddingHorizontal: 12, height: 40, ...Shadow.md },
+  placeholder: { fontSize: 13, color: Colors.textLight, flex: 1 },
 });
