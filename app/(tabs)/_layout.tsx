@@ -29,7 +29,7 @@ function TabIcon({ name, color, focused }: { name: any; color: string; focused: 
 }
 
 const iconStyles = StyleSheet.create({
-  wrap: { alignItems: 'center', justifyContent: 'center', width: 40, height: 34 },
+  wrap: { alignItems: 'center', justifyContent: 'center', width: 40, height: 28 },
   dot: {
     position: 'absolute',
     bottom: 0,
@@ -71,7 +71,7 @@ export default function TabLayout() {
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarStyle: {
-          height: 54 + pb,
+          height: 60 + pb,
           paddingTop: 6,
           paddingBottom: pb + 4,
           paddingHorizontal: 8,
@@ -86,6 +86,7 @@ export default function TabLayout() {
         },
         tabBarActiveTintColor: Colors.primary,
         tabBarInactiveTintColor: '#AAAAAA',
+        tabBarLabelPosition: 'below-icon',
         tabBarLabelStyle: {
           fontSize: 10,
           fontFamily: Fonts.bold,
