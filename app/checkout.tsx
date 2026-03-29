@@ -15,7 +15,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useCart } from '../hooks/useCart';
 import { createOrder } from '../services/orderService';
 import { supabase } from '../lib/supabase';
-import { Colors, Radius, Shadow, FontSize } from '../constants/theme';
+import { Colors, Radius, Shadow, FontSize, Fonts } from '../constants/theme';
 
 const PAYMENT_OPTIONS = [
   { id: 'pix', label: 'Pix', icon: 'qr-code-2' },
@@ -234,10 +234,10 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   backBtn: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: Colors.text },
+  headerTitle: { fontSize: 18, fontFamily: Fonts.bold, color: Colors.text },
   section: { backgroundColor: '#fff', borderRadius: Radius.lg, padding: 16, ...Shadow.sm, gap: 12 },
   sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  sectionTitle: { fontSize: 16, fontWeight: '700', color: Colors.text },
+  sectionTitle: { fontSize: 16, fontFamily: Fonts.bold, color: Colors.text },
   addressInput: {
     borderWidth: 1.5,
     borderColor: Colors.border,
@@ -261,17 +261,17 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.surface,
   },
   paymentOptionActive: { backgroundColor: Colors.primary, borderColor: Colors.primary },
-  paymentLabel: { fontSize: 13, fontWeight: '600', color: Colors.textSecondary },
+  paymentLabel: { fontSize: 13, fontFamily: Fonts.semiBold, color: Colors.textSecondary },
   paymentLabelActive: { color: '#fff' },
   summaryItem: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  summaryItemName: { fontSize: 14, color: Colors.text, flex: 1 },
-  summaryItemPrice: { fontSize: 14, fontWeight: '600', color: Colors.text },
-  summaryLabel: { fontSize: 14, color: Colors.textSecondary },
-  summaryValue: { fontSize: 14, color: Colors.text },
+  summaryItemName: { fontSize: 14, fontFamily: Fonts.regular, color: Colors.text, flex: 1 },
+  summaryItemPrice: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.text },
+  summaryLabel: { fontSize: 14, fontFamily: Fonts.regular, color: Colors.textSecondary },
+  summaryValue: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.text },
   divider: { height: 1, backgroundColor: Colors.border, marginVertical: 4 },
   totalRow: { borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 10, marginTop: 2 },
-  totalLabel: { fontSize: 17, fontWeight: '700', color: Colors.text },
-  totalValue: { fontSize: 20, fontWeight: '800', color: Colors.primary },
+  totalLabel: { fontSize: 17, fontFamily: Fonts.bold, color: Colors.text },
+  totalValue: { fontSize: 20, fontFamily: Fonts.extraBold, color: Colors.primary },
   footer: { backgroundColor: '#fff', paddingHorizontal: 16, paddingTop: 12, borderTopWidth: 1, borderTopColor: Colors.border },
   orderBtn: {
     backgroundColor: Colors.primary,
@@ -283,8 +283,8 @@ const styles = StyleSheet.create({
     gap: 12,
     ...Shadow.md,
   },
-  orderBtnText: { fontSize: 16, fontWeight: '700', color: '#fff', flex: 1, textAlign: 'center' },
-  orderBtnTotal: { fontSize: 15, fontWeight: '700', color: 'rgba(255,255,255,0.9)' },
+  orderBtnText: { fontSize: 16, fontFamily: Fonts.bold, color: '#fff', flex: 1, textAlign: 'center' },
+  orderBtnTotal: { fontSize: 15, fontFamily: Fonts.bold, color: 'rgba(255,255,255,0.9)' },
   // Success
   success: { flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', padding: 32, gap: 16 },
   successIcon: {
@@ -296,8 +296,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 8,
   },
-  successTitle: { fontSize: 28, fontWeight: '800', color: Colors.text },
-  successSubtitle: { fontSize: 15, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 },
+  successTitle: { fontSize: 28, fontFamily: Fonts.extraBold, color: Colors.text },
+  successSubtitle: { fontSize: 15, fontFamily: Fonts.regular, color: Colors.textSecondary, textAlign: 'center', lineHeight: 22 },
   trackBtn: {
     backgroundColor: Colors.primary,
     borderRadius: Radius.md,
@@ -306,6 +306,6 @@ const styles = StyleSheet.create({
     marginTop: 8,
     ...Shadow.md,
   },
-  trackBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
-  homeLink: { fontSize: 14, color: Colors.primary, fontWeight: '600', padding: 8 },
+  trackBtnText: { color: '#fff', fontSize: 16, fontFamily: Fonts.bold },
+  homeLink: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.primary, padding: 8 },
 });

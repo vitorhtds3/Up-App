@@ -21,12 +21,14 @@ export interface CreateOrderPayload {
 }
 
 export async function createOrder(payload: CreateOrderPayload) {
-  // Try the RPC function first (used by restaurant panel)
+  // Try the RPC function first
   const { data: rpcData, error: rpcError } = await supabase.rpc('create_order', {
     p_client_id: payload.user_id,
     p_restaurant_id: payload.restaurant_id,
     p_total: payload.total,
     p_delivery_fee: payload.delivery_fee,
+    p_delivery_address: payload.delivery_address,
+    p_payment_method: payload.payment_method,
     p_items: payload.items.map((item) => ({
       product_id: item.product_id,
       quantity: item.quantity,
@@ -39,9 +41,9 @@ export async function createOrder(payload: CreateOrderPayload) {
     return rpcData;
   }
 
-  // Fallback: direct insert using actual schema columns
   console.warn('[orderService] RPC fallback — reason:', rpcError?.message);
 
+  // Fallback: direct inserts
   const { data: order, error: orderError } = await supabase
     .from('orders')
     .insert({
@@ -49,6 +51,8 @@ export async function createOrder(payload: CreateOrderPayload) {
       restaurant_id: payload.restaurant_id,
       total: payload.total,
       delivery_fee: payload.delivery_fee,
+      delivery_address: payload.delivery_address,
+      payment_method: payload.payment_method,
       status: 'pending',
     })
     .select()
@@ -68,6 +72,7 @@ export async function createOrder(payload: CreateOrderPayload) {
   const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
   if (itemsError) {
     console.error('[orderService] order_items insert error:', itemsError.message);
+    // Don't throw — order was created, items are secondary
   }
 
   return order;
@@ -81,6 +86,8 @@ export async function fetchUserOrders(userId: string) {
       status,
       total,
       delivery_fee,
+      delivery_address,
+      payment_method,
       created_at,
       restaurant_id,
       order_items (
@@ -106,6 +113,8 @@ export async function fetchUserOrders(userId: string) {
     status: o.status || 'pending',
     total: Number(o.total) || 0,
     delivery_fee: Number(o.delivery_fee) || 0,
+    delivery_address: o.delivery_address || '',
+    payment_method: o.payment_method || '',
     created_at: o.created_at,
     restaurant_id: o.restaurant_id,
     restaurant_name: o.restaurants?.name || 'Restaurante',

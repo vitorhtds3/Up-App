@@ -10,7 +10,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Radius, FontSize, Shadow } from '../../constants/theme';
+import { Colors, Radius, FontSize, Shadow, Fonts } from '../../constants/theme';
 import { fetchUserOrders, subscribeToOrder } from '../../services/orderService';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../hooks/useAuth';
@@ -205,24 +205,24 @@ export default function OrdersScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: Colors.surface },
   header: { paddingHorizontal: 20, paddingBottom: 20 },
-  headerTitle: { fontSize: 22, fontWeight: '800', color: '#fff' },
-  headerSub: { fontSize: 13, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
+  headerTitle: { fontSize: 22, fontFamily: Fonts.extraBold, color: '#fff' },
+  headerSub: { fontSize: 13, fontFamily: Fonts.regular, color: 'rgba(255,255,255,0.8)', marginTop: 2 },
   card: { backgroundColor: '#fff', borderRadius: Radius.lg, padding: 16, ...Shadow.sm },
   cardHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', gap: 8 },
-  restaurantName: { fontSize: 16, fontWeight: '700', color: Colors.text },
-  date: { fontSize: 12, color: Colors.textSecondary, marginTop: 2 },
+  restaurantName: { fontSize: 16, fontFamily: Fonts.bold, color: Colors.text },
+  date: { fontSize: 12, fontFamily: Fonts.regular, color: Colors.textSecondary, marginTop: 2 },
   statusBadge: { flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: Radius.full, paddingHorizontal: 10, paddingVertical: 4 },
-  statusText: { fontSize: 11, fontWeight: '600' },
+  statusText: { fontSize: 11, fontFamily: Fonts.semiBold },
   items: { marginTop: 14, gap: 2 },
-  item: { fontSize: 13, color: Colors.textSecondary },
-  more: { fontSize: 12, color: Colors.textLight, fontStyle: 'italic' },
+  item: { fontSize: 13, fontFamily: Fonts.regular, color: Colors.textSecondary },
+  more: { fontSize: 12, fontFamily: Fonts.regular, color: Colors.textLight, fontStyle: 'italic' },
   footer: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 14, paddingTop: 12, borderTopWidth: 1, borderTopColor: Colors.border },
-  total: { fontSize: 16, fontWeight: '700', color: Colors.text },
+  total: { fontSize: 16, fontFamily: Fonts.bold, color: Colors.text },
   repeatBtn: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  repeat: { fontSize: 14, fontWeight: '600', color: Colors.primary },
+  repeat: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.primary },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12, paddingHorizontal: 32 },
-  emptyTitle: { fontSize: 20, fontWeight: '700', color: Colors.text },
-  emptyText: { fontSize: 14, color: Colors.textSecondary, textAlign: 'center' },
+  emptyTitle: { fontSize: 20, fontFamily: Fonts.bold, color: Colors.text },
+  emptyText: { fontSize: 14, fontFamily: Fonts.regular, color: Colors.textSecondary, textAlign: 'center' },
   startBtn: { backgroundColor: Colors.primary, borderRadius: Radius.md, paddingHorizontal: 24, paddingVertical: 14, marginTop: 8 },
-  startBtnText: { color: '#fff', fontSize: 15, fontWeight: '700' },
+  startBtnText: { color: '#fff', fontSize: 15, fontFamily: Fonts.bold },
 });

@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useCart } from '../hooks/useCart';
-import { Colors, Radius, Shadow, FontSize } from '../constants/theme';
+import { Colors, Radius, Shadow, FontSize, Fonts } from '../constants/theme';
 
 const DELIVERY_FEE = 4.99;
 
@@ -154,8 +154,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.border,
   },
   backBtn: { width: 40, height: 40, alignItems: 'center', justifyContent: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: Colors.text },
-  clearText: { fontSize: 14, color: Colors.error, fontWeight: '600' },
+  headerTitle: { fontSize: 18, fontFamily: Fonts.bold, color: Colors.text },
+  clearText: { fontSize: 14, color: Colors.error, fontFamily: Fonts.semiBold },
   restaurantRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: Colors.border,
   },
-  restaurantName: { fontSize: 14, fontWeight: '600', color: Colors.text },
+  restaurantName: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.text },
   itemCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -177,8 +177,8 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   itemImage: { width: 72, height: 72, borderRadius: Radius.sm },
-  itemName: { fontSize: 15, fontWeight: '600', color: Colors.text },
-  itemPrice: { fontSize: 13, color: Colors.textSecondary },
+  itemName: { fontSize: 15, fontFamily: Fonts.semiBold, color: Colors.text },
+  itemPrice: { fontSize: 13, fontFamily: Fonts.regular, color: Colors.textSecondary },
   qtyRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 4 },
   qtyBtn: {
     width: 30,
@@ -189,8 +189,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  qtyText: { fontSize: 16, fontWeight: '700', color: Colors.text, minWidth: 24, textAlign: 'center' },
-  itemTotal: { fontSize: 15, fontWeight: '700', color: Colors.primary, marginLeft: 'auto' },
+  qtyText: { fontSize: 16, fontFamily: Fonts.bold, color: Colors.text, minWidth: 24, textAlign: 'center' },
+  itemTotal: { fontSize: 15, fontFamily: Fonts.bold, color: Colors.primary, marginLeft: 'auto' },
   summary: {
     backgroundColor: '#fff',
     borderRadius: Radius.md,
@@ -200,11 +200,11 @@ const styles = StyleSheet.create({
     ...Shadow.sm,
   },
   summaryRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  summaryLabel: { fontSize: 14, color: Colors.textSecondary },
-  summaryValue: { fontSize: 14, color: Colors.text, fontWeight: '500' },
+  summaryLabel: { fontSize: 14, fontFamily: Fonts.regular, color: Colors.textSecondary },
+  summaryValue: { fontSize: 14, fontFamily: Fonts.semiBold, color: Colors.text },
   totalRow: { borderTopWidth: 1, borderTopColor: Colors.border, paddingTop: 10, marginTop: 2 },
-  totalLabel: { fontSize: 17, fontWeight: '700', color: Colors.text },
-  totalValue: { fontSize: 20, fontWeight: '800', color: Colors.primary },
+  totalLabel: { fontSize: 17, fontFamily: Fonts.bold, color: Colors.text },
+  totalValue: { fontSize: 20, fontFamily: Fonts.extraBold, color: Colors.primary },
   footer: { backgroundColor: '#fff', paddingHorizontal: 16, paddingTop: 12, borderTopWidth: 1, borderTopColor: Colors.border },
   checkoutBtn: {
     backgroundColor: Colors.primary,
@@ -224,12 +224,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  checkoutBadgeText: { fontSize: 13, fontWeight: '800', color: '#fff' },
-  checkoutText: { flex: 1, fontSize: 16, fontWeight: '700', color: '#fff', textAlign: 'center' },
-  checkoutTotal: { fontSize: 15, fontWeight: '700', color: '#fff' },
+  checkoutBadgeText: { fontSize: 13, fontFamily: Fonts.black, color: '#fff' },
+  checkoutText: { flex: 1, fontSize: 16, fontFamily: Fonts.bold, color: '#fff', textAlign: 'center' },
+  checkoutTotal: { fontSize: 15, fontFamily: Fonts.bold, color: '#fff' },
   empty: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 12, paddingHorizontal: 32 },
-  emptyTitle: { fontSize: 22, fontWeight: '700', color: Colors.text },
-  emptyText: { fontSize: 14, color: Colors.textSecondary, textAlign: 'center' },
+  emptyTitle: { fontSize: 22, fontFamily: Fonts.bold, color: Colors.text },
+  emptyText: { fontSize: 14, fontFamily: Fonts.regular, color: Colors.textSecondary, textAlign: 'center' },
   exploreBtn: { backgroundColor: Colors.primary, borderRadius: Radius.md, paddingHorizontal: 24, paddingVertical: 14, marginTop: 8 },
   exploreBtnText: { color: '#fff', fontSize: 15, fontWeight: '700' },
 });
