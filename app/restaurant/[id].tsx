@@ -8,7 +8,6 @@ import {
   Animated,
   Dimensions,
   FlatList,
-  Modal,
   Pressable,
   Platform,
   ActivityIndicator,
@@ -24,7 +23,7 @@ import { useCart } from '../../hooks/useCart';
 const { width: W } = Dimensions.get('window');
 const HEADER_HEIGHT = 260;
 
-function AddToCartModal({
+function AddToCartSheet({
   product,
   visible,
   onClose,
@@ -36,16 +35,24 @@ function AddToCartModal({
   onAdd: (qty: number) => void;
 }) {
   const [qty, setQty] = useState(1);
-  if (!product) return null;
+
+  useEffect(() => {
+    if (visible) setQty(1);
+  }, [visible]);
+
+  if (!visible || !product) return null;
+
   return (
-    <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
+    <View style={modalStyles.overlay}>
       <Pressable style={modalStyles.backdrop} onPress={onClose} />
       <View style={modalStyles.sheet}>
         <View style={modalStyles.handle} />
         <Image source={{ uri: product.image }} style={modalStyles.image} contentFit="cover" transition={200} />
         <View style={modalStyles.info}>
           <Text style={modalStyles.name}>{product.name}</Text>
-          <Text style={modalStyles.description}>{product.description}</Text>
+          {!!product.description && (
+            <Text style={modalStyles.description}>{product.description}</Text>
+          )}
           <Text style={modalStyles.price}>R$ {product.price.toFixed(2)}</Text>
         </View>
         <View style={modalStyles.qtyRow}>
@@ -63,7 +70,7 @@ function AddToCartModal({
         </View>
         <TouchableOpacity
           style={modalStyles.addBtn}
-          onPress={() => { onAdd(qty); onClose(); setQty(1); }}
+          onPress={() => { onAdd(qty); onClose(); }}
           activeOpacity={0.88}
         >
           <Text style={modalStyles.addBtnText}>
@@ -71,33 +78,45 @@ function AddToCartModal({
           </Text>
         </TouchableOpacity>
       </View>
-    </Modal>
+    </View>
   );
 }
 
 const modalStyles = StyleSheet.create({
-  backdrop: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)' },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: 999,
+    justifyContent: 'flex-end',
+  },
+  backdrop: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
   sheet: {
     backgroundColor: '#fff',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     paddingBottom: 32,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
   handle: { width: 40, height: 4, backgroundColor: Colors.border, borderRadius: 2, alignSelf: 'center', marginTop: 12, marginBottom: 16 },
   image: { width: '100%', height: 180 },
   info: { padding: 20, gap: 6 },
-  name: { fontSize: 20, fontWeight: '700', color: Colors.text },
-  description: { fontSize: 14, color: Colors.textSecondary, lineHeight: 20 },
-  price: { fontSize: 22, fontWeight: '800', color: Colors.primary, marginTop: 4 },
+  name: { fontSize: 20, fontFamily: 'Nunito_700Bold', color: Colors.text },
+  description: { fontSize: 14, fontFamily: 'Nunito_400Regular', color: Colors.textSecondary, lineHeight: 20 },
+  price: { fontSize: 22, fontFamily: 'Nunito_800ExtraBold', color: Colors.primary, marginTop: 4 },
   qtyRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 24, marginBottom: 16 },
   qtyBtn: { width: 44, height: 44, borderRadius: 22, borderWidth: 1.5, borderColor: Colors.primary, alignItems: 'center', justifyContent: 'center' },
-  qtyText: { fontSize: 22, fontWeight: '700', color: Colors.text, minWidth: 32, textAlign: 'center' },
+  qtyText: { fontSize: 22, fontFamily: 'Nunito_700Bold', color: Colors.text, minWidth: 32, textAlign: 'center' },
   addBtn: { backgroundColor: Colors.primary, marginHorizontal: 20, borderRadius: Radius.md, height: 54, alignItems: 'center', justifyContent: 'center', ...Shadow.md },
-  addBtnText: { color: '#fff', fontSize: 16, fontWeight: '700' },
+  addBtnText: { color: '#fff', fontSize: 16, fontFamily: 'Nunito_700Bold' },
 });
 
 function ProductCard({ product, onPress }: { product: any; onPress: () => void }) {
@@ -344,8 +363,8 @@ export default function RestaurantScreen() {
         </View>
       ) : null}
 
-      {/* Add to Cart Modal */}
-      <AddToCartModal
+      {/* Add to Cart Sheet */}
+      <AddToCartSheet
         product={selectedProduct}
         visible={!!selectedProduct}
         onClose={() => setSelectedProduct(null)}
