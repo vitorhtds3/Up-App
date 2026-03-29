@@ -1,5 +1,6 @@
 import { Stack } from 'expo-router';
 import { useEffect } from 'react';
+import { Platform, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '../contexts/AuthContext';
 import { CartProvider } from '../contexts/CartContext';
@@ -17,7 +18,7 @@ function PushRegistrar() {
 }
 
 export default function RootLayout() {
-  return (
+  const content = (
     <SafeAreaProvider>
       <AuthProvider>
         <CartProvider>
@@ -45,4 +46,16 @@ export default function RootLayout() {
       </AuthProvider>
     </SafeAreaProvider>
   );
+
+  if (Platform.OS === 'web') {
+    return (
+      <View style={{ flex: 1, backgroundColor: '#111', alignItems: 'center' }}>
+        <View style={{ flex: 1, width: '100%', maxWidth: 430 }}>
+          {content}
+        </View>
+      </View>
+    );
+  }
+
+  return content;
 }
