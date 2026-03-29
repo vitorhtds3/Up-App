@@ -21,7 +21,7 @@ export interface CreateOrderPayload {
 }
 
 export async function createOrder(payload: CreateOrderPayload) {
-  // Try the create_order() RPC function first (handles driver assignment, earnings, etc.)
+  // Try the RPC function first (used by restaurant panel)
   const { data: rpcData, error: rpcError } = await supabase.rpc('create_order', {
     p_client_id: payload.user_id,
     p_restaurant_id: payload.restaurant_id,
@@ -35,11 +35,12 @@ export async function createOrder(payload: CreateOrderPayload) {
   });
 
   if (!rpcError && rpcData) {
+    console.log('[orderService] Order created via RPC:', rpcData);
     return rpcData;
   }
 
-  // Fallback: direct insert using correct schema columns
-  console.log('RPC create_order fallback, reason:', rpcError?.message);
+  // Fallback: direct insert using actual schema columns
+  console.warn('[orderService] RPC fallback — reason:', rpcError?.message);
 
   const { data: order, error: orderError } = await supabase
     .from('orders')
@@ -66,7 +67,7 @@ export async function createOrder(payload: CreateOrderPayload) {
 
   const { error: itemsError } = await supabase.from('order_items').insert(orderItems);
   if (itemsError) {
-    console.error('Order items error:', itemsError);
+    console.error('[orderService] order_items insert error:', itemsError.message);
   }
 
   return order;
@@ -76,7 +77,12 @@ export async function fetchUserOrders(userId: string) {
   const { data, error } = await supabase
     .from('orders')
     .select(`
-      *,
+      id,
+      status,
+      total,
+      delivery_fee,
+      created_at,
+      restaurant_id,
       order_items (
         id,
         quantity,
@@ -89,12 +95,20 @@ export async function fetchUserOrders(userId: string) {
     .eq('client_id', userId)
     .order('created_at', { ascending: false });
 
-  if (error || !data) return [];
+  if (error) {
+    console.error('[orderService] fetchUserOrders error:', error.message);
+    return [];
+  }
+  if (!data) return [];
 
   return data.map((o: any) => ({
-    ...o,
+    id: o.id,
+    status: o.status || 'pending',
+    total: Number(o.total) || 0,
+    delivery_fee: Number(o.delivery_fee) || 0,
+    created_at: o.created_at,
+    restaurant_id: o.restaurant_id,
     restaurant_name: o.restaurants?.name || 'Restaurante',
-    total: Number(o.total_price) || 0,
     order_items: (o.order_items || []).map((i: any) => ({
       product_name: i.products?.name || 'Item',
       quantity: i.quantity,

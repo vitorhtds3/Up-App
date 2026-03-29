@@ -175,8 +175,8 @@ export async function fetchOrderHistory(userId: string): Promise<OrderHistory[]>
       .select(`
         id,
         status,
-        total_price,
-        delivery_address,
+        total,
+        delivery_fee,
         created_at,
         restaurants ( name ),
         order_items (
@@ -194,8 +194,8 @@ export async function fetchOrderHistory(userId: string): Promise<OrderHistory[]>
     return data.map((o: any) => ({
       id: o.id,
       status: o.status,
-      total_price: Number(o.total_price) || 0,
-      delivery_address: o.delivery_address || '',
+      total_price: Number(o.total) || 0,
+      delivery_address: '',
       created_at: o.created_at,
       restaurant_name: o.restaurants?.name || 'Restaurante',
       order_items: (o.order_items || []).map((i: any) => ({
